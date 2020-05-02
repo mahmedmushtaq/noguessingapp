@@ -4,10 +4,30 @@ import Header from "./components/header";
 import Startgame from "./screens/startgame";
 import Gamescreen from "./screens/gamescreen";
 import GameScreenOverlay from "./screens/gamescreenoverly";
+import * as Font from "expo-font";
+import {AppLoading} from "expo";
+
+const fetchFonts = ()=>{
+    return Font.loadAsync({
+        'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
+        'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf')
+    });
+}
 
 export default function App() {
   const [chooseNumber,setChooseNumber] = useState('');
   const [guessRounds,setGuessRounds] = useState(0);
+  const [dataLoaded,setDataLoaded] = useState(false);
+    const [guessList,setGuessList] = useState([]);
+    if (!dataLoaded) {
+        return (
+            <AppLoading
+                startAsync={fetchFonts}
+                onFinish={() => setDataLoaded(true)}
+                onError={(err) => console.log(err)}
+            />
+        );
+    }
 
 
   const resetGame = ()=>{
@@ -28,9 +48,9 @@ export default function App() {
   let content= <Startgame chooseNumber={chooseNumberHandler}/>;
 
   if(chooseNumber && guessRounds <=0){
-      content = <Gamescreen userChoice={chooseNumber} onGameOver={gameOverlayHandler}/>
+      content = <Gamescreen setGuessList={setGuessList}  userChoice={chooseNumber} onGameOver={gameOverlayHandler}/>
   }else if(guessRounds > 0){
-      content = <GameScreenOverlay guessRounds={guessRounds} resetGame={resetGame}/>
+      content = <GameScreenOverlay guessRounds={guessRounds} resetGame={resetGame} guessList={guessList}/>
   }
 
   return (

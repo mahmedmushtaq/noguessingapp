@@ -1,6 +1,7 @@
 import React from "react";
 import {Text,View,StyleSheet,Button} from "react-native";
 import color from "../constants/colors";
+import MainButton from "./MainButton";
 
 const NumberContainer = (props)=>{
     return(
@@ -8,7 +9,7 @@ const NumberContainer = (props)=>{
            <Text style={styles.numberContainer}>
                {props.number}
            </Text>
-           <Button color={color.primary} onPress={props.chooseNumber.bind(this,props.number)} title={"Start Game"}/>
+           <MainButton  onPress={props.chooseNumber.bind(this,props.number)} >Start a game</MainButton>
        </View>
     )
 }

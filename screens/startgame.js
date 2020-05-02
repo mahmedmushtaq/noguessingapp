@@ -9,6 +9,7 @@ const Startgame = props=>{
     const [enteredValue,setEnteredValue] = useState('');
     const [confirmed,setConfirmed] = useState(false);
     const [chooseNumber,setChooseNumber] = useState(-2);
+
     const inputHandler = (inputText)=>{
         setEnteredValue(inputText.replace(/[^0-9]/g,''));
     }
@@ -82,6 +83,7 @@ const styles = StyleSheet.create({
     title:{
         fontSize:20,
         marginVertical:10,
+        fontFamily:"open-sans-bold"
     },
 
     // shadow property only works in ios not in android
